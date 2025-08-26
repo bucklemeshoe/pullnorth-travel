@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enquiry Form</title>
+</head>
+<body>
+    <form name="enquiry-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="enquiry-form" />
+        <div hidden>
+            <input name="bot-field" />
+        </div>
+        
+        <label for="destination">Destination</label>
+        <input type="text" name="destination" id="destination" required />
+        
+        <label for="tripType">Trip Type</label>
+        <select name="tripType" id="tripType" required>
+            <option value="">Select trip type</option>
+            <option value="Ultra-Luxury Leisure">Ultra-Luxury Leisure</option>
+            <option value="Yachtie Lifestyle">Yachtie Lifestyle</option>
+            <option value="Corporate Incentive">Corporate Incentive</option>
+            <option value="Inbound VIP South Africa">Inbound VIP South Africa</option>
+            <option value="Signature Experiences">Signature Experiences</option>
+        </select>
+        
+        <label for="startDate">Start Date</label>
+        <input type="date" name="startDate" id="startDate" required />
+        
+        <label for="endDate">End Date</label>
+        <input type="date" name="endDate" id="endDate" required />
+        
+        <label for="guests">Guests</label>
+        <input type="number" name="guests" id="guests" value="2" min="1" required />
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html> 
