@@ -44,7 +44,7 @@ export default function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground hover:text-accent transition-colors p-2"
+              className="text-[#3e3e3e] hover:text-accent transition-colors p-2"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>

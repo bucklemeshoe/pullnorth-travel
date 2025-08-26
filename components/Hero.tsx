@@ -50,9 +50,8 @@ export default function Hero() {
           <h1 className="font-montserrat text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight leading-[1.1] max-w-6xl mx-auto">
             Curators of Ultra‑<br />Luxury Journeys
           </h1>
-          <p className="font-karla text-lg md:text-xl lg:text-2xl text-[#ffffff] max-w-4xl mx-auto leading-relaxed font-light">
-            World‑class experiences, thoughtfully curated<br />
-            for those who live without compromise.
+          <p className="font-karla text-lg md:text-xl lg:text-2xl text-[#ffffff] max-w-4xl mx-auto leading-relaxed font-light whitespace-nowrap">
+            World‑class experiences, thoughtfully curated for those who live without compromise.
           </p>
         </div>
 
