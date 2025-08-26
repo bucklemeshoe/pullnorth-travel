@@ -8,7 +8,7 @@ export default function CtaBanner() {
           className="mx-auto mb-6 h-auto"
           style={{ width: '32px' }}
         />
-        <h2 className="font-montserrat text-[48px] font-bold mb-6 text-[#3e3e3e]">Where Luxury Meets Latitude</h2>
+        <h2 className="font-montserrat text-[48px] font-bold mb-6 text-[#3e3e3e] leading-[61px]">Where Luxury Meets Latitude</h2>
         <p className="font-karla text-xl md:text-2xl mb-12 leading-relaxed text-[#3e3e3e]">
           Journeys with precision, privacy, and soul.
         </p>

@@ -39,7 +39,7 @@ export default function FeatureCards() {
             style={{ width: '32px' }}
           />
           <p className="font-karla text-sm text-slate-500 mb-2 uppercase tracking-wide">Four Foundations</p>
-          <h2 className="font-montserrat text-[41px] font-bold text-[#3e3e3e] mb-6">Our Pillars of Excellence</h2>
+                      <h2 className="font-montserrat text-[41px] font-bold text-[#3e3e3e] mb-6 leading-[54px]">Our Pillars of Excellence</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

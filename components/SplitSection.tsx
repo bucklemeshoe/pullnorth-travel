@@ -2,25 +2,25 @@ export default function SplitSection() {
   return (
     <section className="py-30 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="order-2 lg:order-1 relative">
             <img
               src="/images/hero/pexels-melvinwahlin-2405648.jpg"
               alt="Luxury yacht experience"
               className="w-full h-96 lg:h-[500px] object-cover rounded-none shadow-xl"
             />
-            <div className="absolute -bottom-8 -left-8">
+            <div className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8">
               <img
                 src="/images/badges/pull_north-badge.png"
                 alt="Pull North Yachting"
-                className="w-40 h-40 object-contain"
+                className="w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 object-contain"
               />
             </div>
           </div>
 
           <div className="order-1 lg:order-2">
-            <h2 className="font-montserrat text-[41px] font-bold text-[#3e3e3e] mb-6">Yachtie Lifestyle</h2>
-            <p className="font-karla text-xl text-[#3e3e3e]/70 mb-8 leading-relaxed">
+            <h2 className="font-montserrat text-3xl sm:text-4xl lg:text-[41px] font-bold text-[#3e3e3e] mb-6 leading-[54px]">Yachtie Lifestyle</h2>
+            <p className="font-karla text-lg sm:text-xl text-[#3e3e3e]/70 mb-6 sm:mb-8 leading-relaxed">
               Embrace the freedom of the open seas with our curated maritime experiences, from intimate bareboat
               adventures to fully-crewed luxury expeditions.
             </p>
