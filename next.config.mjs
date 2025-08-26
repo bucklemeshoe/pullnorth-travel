@@ -6,14 +6,13 @@ const nextConfig = {
     formats: ['image/webp'],
   },
   
-  // Enable compression
-  compress: true,
-  
-  // Optimize bundle size
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ['lucide-react'],
-  },
+                // Enable compression
+              compress: true,
+              
+              // Optimize bundle size
+              experimental: {
+                optimizePackageImports: ['lucide-react'],
+              },
   
   // Enable webpack optimizations
   webpack: (config, { dev, isServer }) => {
