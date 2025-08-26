@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   title: "Pull North Travel - Curators of Ultra-Luxury Journeys",
   description:
     "World-class experiences, thoughtfully curated for those who live without compromise. Private aviation, elite villas, designer safaris, and insider access worldwide.",
+  icons: {
+    icon: '/images/pull-north-travel_favicon.png',
+    shortcut: '/images/pull-north-travel_favicon.png',
+    apple: '/images/pull-north-travel_favicon.png',
+  },
   openGraph: {
     title: "Pull North Travel - Curators of Ultra-Luxury Journeys",
     description: "World-class experiences, thoughtfully curated for those who live without compromise.",

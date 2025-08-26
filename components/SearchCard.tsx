@@ -58,14 +58,18 @@ export default function SearchCard() {
       setSubmitStatus("idle")
 
       try {
-        // Create FormData for Netlify
-        const formDataToSubmit = new FormData(e.target as HTMLFormElement)
-        
-        // Submit to Netlify
-        const response = await fetch('/', {
+        // Submit to our API route
+        const response = await fetch('/api/enquire', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formDataToSubmit as any).toString(),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            destination: formData.destination,
+            tripType: formData.type,
+            startDate: formData.startDate,
+            endDate: formData.endDate,
+            guests: formData.guests,
+            submittedAt: new Date().toISOString(),
+          }),
         })
 
         if (response.ok) {

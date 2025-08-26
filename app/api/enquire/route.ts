@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendEnquiryEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,13 +15,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Here you would typically:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Integrate with CRM
-    // 4. Log the enquiry
-    
-    // For now, we'll just log the data and return success
+    // Log the enquiry data
     console.log('New enquiry received:', {
       destination,
       tripType,
@@ -31,12 +26,21 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     })
 
-    // Example: You could send an email here
-    // await sendEnquiryEmail({
-    //   to: 'team@pullnorth.com',
-    //   subject: 'New Travel Enquiry',
-    //   data: body
-    // })
+    // Send email notification
+    try {
+      await sendEnquiryEmail({
+        destination,
+        tripType,
+        startDate,
+        endDate,
+        guests,
+        submittedAt,
+      })
+      console.log('Email notification sent successfully')
+    } catch (emailError) {
+      console.error('Failed to send email notification:', emailError)
+      // Don't fail the entire request if email fails
+    }
 
     // Example: You could save to a database here
     // await saveEnquiryToDatabase(body)
