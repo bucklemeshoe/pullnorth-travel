@@ -3,7 +3,7 @@ export default function CtaBanner() {
     <section className="py-30 text-white bg-[rgba(227,222,211,1)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <img
-          src="/Screenshot+2025-01-14+at+09.20.23-removebg-preview.png"
+          src="/images/badges/Screenshot+2025-01-14+at+09.20.23-removebg-preview.png"
           alt="Pull North Travel"
           className="mx-auto mb-6 h-auto"
           style={{ width: '32px' }}

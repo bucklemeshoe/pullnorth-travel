@@ -4,10 +4,10 @@ import { useState, useEffect } from "react"
 import SearchCard from "./SearchCard"
 
 const heroImages = [
-  "/pexels-pixabay-271681.jpg",
-  "/pexels-anetta-kolesnikova-2154382947-33605105.jpg",
-  "/pexels-mikitayo-18156174.jpg",
-  "/pexels-osho-1001965.jpg"
+  "/images/hero/pexels-pixabay-271681.jpg",
+  "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105.jpg",
+  "/images/hero/pexels-mikitayo-18156174.jpg",
+  "/images/hero/pexels-osho-1001965.jpg"
 ]
 
 export default function Hero() {

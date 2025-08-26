@@ -14,23 +14,23 @@ const experiences = [
     title: "Music & Culture Festivals",
     description:
       "Behind-the-scenes access to world-renowned festivals with artist meet-and-greets and premium accommodations.",
-    image: "/luxury-music-festival-vip-experience.png",
+    image: "/images/experiences/luxury-music-festival-vip-experience.png",
   },
   {
     title: "Wellness Retreats",
     description: "Transformative wellness journeys at the world's most exclusive spas and healing sanctuaries.",
-    image: "/luxury-wellness-retreat-spa-experience.png",
+    image: "/images/experiences/luxury-wellness-retreat-spa-experience.png",
   },
   {
     title: "Italian Wine Country",
     description: "Private tastings at legendary vineyards with master sommeliers and exclusive cellar experiences.",
-    image: "/luxury-italian-vineyard-wine-tasting-experience.png",
+    image: "/images/experiences/luxury-italian-vineyard-wine-tasting-experience.png",
   },
   {
     title: "Northern Lights Glamping",
     description:
       "Luxury glass igloos and heated tents for the ultimate aurora viewing experience in pristine wilderness.",
-    image: "/luxury-northern-lights-glamping-glass-igloo.png",
+    image: "/images/experiences/luxury-northern-lights-glamping-glass-igloo.png",
   },
 ]
 
