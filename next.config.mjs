@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable image optimization for static export
-  images: {
-    unoptimized: true,
-    formats: ['image/webp'],
-  },
+                // Disable image optimization for static export
+              images: {
+                unoptimized: true,
+                formats: ['image/webp', 'image/avif'],
+              },
   
                 // Enable compression
               compress: true,
@@ -32,8 +32,8 @@ const nextConfig = {
     return config
   },
   
-  // Enable static optimization
-  output: 'export',
+  // Enable static optimization (removed for API routes support)
+  // output: 'export',
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
 }

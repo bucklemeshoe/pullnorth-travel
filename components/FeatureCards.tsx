@@ -33,7 +33,7 @@ export default function FeatureCards() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <img
-            src="/images/badges/Screenshot+2025-01-14+at+09.20.23.webp"
+            src="/images/badges/Screenshot+2025-01-14+at+09.20.23-removebg-preview-1920w.webp"
             alt="Pull North Travel"
             className="mx-auto mb-6 h-auto -mt-6"
             style={{ width: '32px' }}

@@ -30,7 +30,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pull North Travel - Curators of Ultra-Luxury Journeys",
     description: "World-class experiences, thoughtfully curated for those who live without compromise.",
-    images: ["/luxury-travel-hero-image.png"],
   },
     generator: 'v0.app'
 }

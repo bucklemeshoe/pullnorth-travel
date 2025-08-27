@@ -5,24 +5,20 @@ import SearchCard from "./SearchCard"
 
 const heroImages = [
   {
-    src: "/images/hero/pexels-pixabay-271681.webp",
-    srcSet: "/images/hero/pexels-pixabay-271681-400w.webp 400w, /images/hero/pexels-pixabay-271681-800w.webp 800w, /images/hero/pexels-pixabay-271681-1200w.webp 1200w, /images/hero/pexels-pixabay-271681-1920w.webp 1920w",
-    fallback: "/images/hero/pexels-pixabay-271681.jpg"
+    src: "/images/hero/pexels-pixabay-271681-1920w.avif",
+    fallback: "/images/hero/pexels-pixabay-271681-1920w.webp"
   },
   {
-    src: "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105.webp",
-    srcSet: "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105-400w.webp 400w, /images/hero/pexels-anetta-kolesnikova-2154382947-33605105-800w.webp 800w, /images/hero/pexels-anetta-kolesnikova-2154382947-33605105-1200w.webp 1200w, /images/hero/pexels-anetta-kolesnikova-2154382947-33605105-1920w.webp 1920w",
-    fallback: "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105.jpg"
+    src: "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105-1920w.avif",
+    fallback: "/images/hero/pexels-anetta-kolesnikova-2154382947-33605105-1920w.webp"
   },
   {
-    src: "/images/hero/pexels-mikitayo-18156174.webp",
-    srcSet: "/images/hero/pexels-mikitayo-18156174-400w.webp 400w, /images/hero/pexels-mikitayo-18156174-800w.webp 800w, /images/hero/pexels-mikitayo-18156174-1200w.webp 1200w, /images/hero/pexels-mikitayo-18156174-1920w.webp 1920w",
-    fallback: "/images/hero/pexels-mikitayo-18156174.jpg"
+    src: "/images/hero/pexels-mikitayo-18156174-1920w.avif",
+    fallback: "/images/hero/pexels-mikitayo-18156174-1920w.webp"
   },
   {
-    src: "/images/hero/pexels-osho-1001965.webp",
-    srcSet: "/images/hero/pexels-osho-1001965-400w.webp 400w, /images/hero/pexels-osho-1001965-800w.webp 800w, /images/hero/pexels-osho-1001965-1200w.webp 1200w, /images/hero/pexels-osho-1001965-1920w.webp 1920w",
-    fallback: "/images/hero/pexels-osho-1001965.jpg"
+    src: "/images/hero/pexels-osho-1001965-1920w.avif",
+    fallback: "/images/hero/pexels-osho-1001965-1920w.webp"
   }
 ]
 
@@ -46,7 +42,11 @@ export default function Hero() {
         {heroImages.map((image, index) => (
           <picture key={image.src}>
             <source
-              srcSet={image.srcSet}
+              srcSet={image.src}
+              type="image/avif"
+            />
+            <source
+              srcSet={image.fallback}
               type="image/webp"
             />
             <img

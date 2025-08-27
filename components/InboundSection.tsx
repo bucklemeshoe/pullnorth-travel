@@ -50,14 +50,14 @@ export default function InboundSection() {
             <div className="space-y-6">
               <div className="group overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                 <img
-                  src="/images/hero/pexels-chloekalaartist-1004639.jpg"
+                  src="/images/hero/pexels-chloekalaartist-1004639-1920w.webp"
                   alt="African safari"
                   className="w-full h-64 object-cover rounded-none group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="group overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                 <img
-                  src="/images/hero/pexels-pixabay-259547.jpg"
+                  src="/images/hero/pexels-pixabay-259547-1920w.webp"
                   alt="Wine estate"
                   className="w-full h-64 object-cover rounded-none group-hover:scale-105 transition-transform duration-500"
                 />
@@ -66,14 +66,14 @@ export default function InboundSection() {
             <div className="space-y-6 pt-6 sm:pt-12">
               <div className="group overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                 <img
-                  src="/images/hero/pexels-taryn-elliott-3889919.jpg"
+                  src="/images/hero/pexels-taryn-elliott-3889919-1920w.webp"
                   alt="Garden Route"
                   className="w-full h-64 object-cover rounded-none group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="group overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                 <img
-                  src="/images/hero/pexels-taryn-elliott-3889929.jpg"
+                  src="/images/hero/pexels-taryn-elliott-3889929-1920w.webp"
                   alt="Cape Town aerial"
                   className="w-full h-64 object-cover rounded-none group-hover:scale-105 transition-transform duration-500"
                 />

@@ -8,34 +8,34 @@ const experiences = [
     title: "Formula One Tours",
     description:
       "VIP access to the world's most prestigious racing circuits with paddock passes and exclusive hospitality.",
-    image: "/formula-1-racing-circuit-luxury-experience.png",
+    image: "/formula-1-racing-circuit-luxury-experience.avif",
     webp: "/formula-1-racing-circuit-luxury-experience.webp",
   },
   {
     title: "Music & Culture Festivals",
     description:
       "Behind-the-scenes access to world-renowned festivals with artist meet-and-greets and premium accommodations.",
-    image: "/images/experiences/luxury-music-festival-vip-experience.webp",
-    fallback: "/images/experiences/luxury-music-festival-vip-experience.png",
+    image: "/images/experiences/luxury-music-festival-vip-experience-1920w.avif",
+    fallback: "/images/experiences/luxury-music-festival-vip-experience-1920w.webp",
   },
   {
     title: "Wellness Retreats",
     description: "Transformative wellness journeys at the world's most exclusive spas and healing sanctuaries.",
-    image: "/images/experiences/luxury-wellness-retreat-spa-experience.webp",
-    fallback: "/images/experiences/luxury-wellness-retreat-spa-experience.png",
+    image: "/images/experiences/luxury-wellness-retreat-spa-experience-1920w.avif",
+    fallback: "/images/experiences/luxury-wellness-retreat-spa-experience-1920w.webp",
   },
   {
     title: "Italian Wine Country",
     description: "Private tastings at legendary vineyards with master sommeliers and exclusive cellar experiences.",
-    image: "/images/experiences/luxury-italian-vineyard-wine-tasting-experience.webp",
-    fallback: "/images/experiences/luxury-italian-vineyard-wine-tasting-experience.png",
+    image: "/images/experiences/luxury-italian-vineyard-wine-tasting-experience-1920w.avif",
+    fallback: "/images/experiences/luxury-italian-vineyard-wine-tasting-experience-1920w.webp",
   },
   {
     title: "Northern Lights Glamping",
     description:
       "Luxury glass igloos and heated tents for the ultimate aurora viewing experience in pristine wilderness.",
-    image: "/images/experiences/luxury-northern-lights-glamping-glass-igloo.webp",
-    fallback: "/images/experiences/luxury-northern-lights-glamping-glass-igloo.png",
+    image: "/images/experiences/luxury-northern-lights-glamping-glass-igloo-1920w.avif",
+    fallback: "/images/experiences/luxury-northern-lights-glamping-glass-igloo-1920w.webp",
   },
 ]
 
@@ -78,9 +78,8 @@ export default function ExperiencesGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-montserrat text-3xl sm:text-4xl lg:text-[41px] font-bold text-[#3e3e3e] mb-6 leading-[54px]">Signature Experiences</h2>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
-            Curated adventures that create lasting memories<br />
-            and exclusive access to the extraordinary
+          <p className="text-lg sm:text-xl text-slate-600 max-w-[375px] sm:max-w-[500px] mx-auto">
+            Curated adventures that create lasting memories and exclusive access to the extraordinary
           </p>
         </div>
 
@@ -117,7 +116,8 @@ export default function ExperiencesGrid() {
                 >
                   <div className="aspect-[5/3] overflow-hidden">
                     <picture>
-                      <source srcSet={experience.image} type="image/webp" />
+                      <source srcSet={experience.image} type="image/avif" />
+                      <source srcSet={experience.fallback || experience.webp} type="image/webp" />
                       <img
                         src={experience.fallback || experience.image || "/placeholder.svg"}
                         alt={experience.title}

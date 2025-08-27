@@ -5,13 +5,13 @@ export default function SplitSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="order-2 lg:order-1 relative">
             <img
-              src="/images/hero/pexels-melvinwahlin-2405648.jpg"
+              src="/images/hero/pexels-melvinwahlin-2405648-1920w.webp"
               alt="Luxury yacht experience"
               className="w-full h-96 lg:h-[500px] object-cover rounded-none shadow-xl"
             />
             <div className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8">
               <img
-                src="/images/badges/pull_north-badge.png"
+                src="/images/badges/pull_north-badge-1920w.webp"
                 alt="Pull North Yachting"
                 className="w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 object-contain"
               />

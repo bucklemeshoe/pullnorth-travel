@@ -18,7 +18,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-20">
           <a href="https://www.pullnorthyachting.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
             <Image
-              src="/images/pull-north-logo.png"
+              src="/images/pull-north-logo.webp"
               alt="Pull North Yachting"
               width={192}
               height={54}

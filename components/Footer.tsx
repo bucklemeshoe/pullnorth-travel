@@ -8,7 +8,7 @@ export default function Footer() {
           {/* Logo */}
           <div className="flex justify-center">
             <Image
-              src="/images/pull-north-logo.png"
+              src="/images/pull-north-logo.webp"
               alt="Pull North Travel"
               width={200}
               height={56}
