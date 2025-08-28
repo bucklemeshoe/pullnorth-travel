@@ -5,6 +5,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const experiences = [
   {
+    title: "French Riviera Wine & Luxury Tour Series",
+    description:
+      "Five-star stays along the Riviera paired with exclusive wine tastings in Provence's famed estates.",
+    image: "/images/experiences/french_riviera_1-1920w.avif",
+    fallback: "/images/experiences/french_riviera_1-1920w.webp",
+  },
+  {
     title: "Formula One Tours",
     description:
       "VIP access to the world's most prestigious racing circuits with paddock passes and exclusive hospitality.",

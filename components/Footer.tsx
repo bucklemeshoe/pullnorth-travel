@@ -39,18 +39,18 @@ export default function Footer() {
             <div className="font-karla text-slate-600 space-y-1">
               <p>
                 <a 
-                  href="tel:+27649039753" 
+                  href="tel:+27673227916" 
                   className="underline hover:text-[#255156] transition-colors duration-200"
                 >
-                  +27 64 903 9753
+                  +27673227916
                 </a>
               </p>
               <p>
                 <a 
-                  href="mailto:team@pullnorth.com" 
+                  href="mailto:travel@pullnorth.com" 
                   className="underline hover:text-[#255156] transition-colors duration-200"
                 >
-                  team@pullnorth.com
+                  travel@pullnorth.com
                 </a>
               </p>
             </div>
