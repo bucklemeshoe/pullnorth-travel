@@ -48,24 +48,42 @@ const experiences = [
 
 export default function ExperiencesGrid() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  
-  // Responsive cards to show
+  const [cardsToShow, setCardsToShow] = useState(3)
+  const [isClient, setIsClient] = useState(false)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
+
+  // Responsive cards configuration
   const getCardsToShow = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 1 // Mobile
-      if (window.innerWidth < 1024) return 2 // Tablet
-      return 3 // Desktop
+      const width = window.innerWidth
+      if (width < 640) return 1 // Mobile
+      if (width < 1024) return 2 // Tablet
+      if (width < 1280) return 3 // Desktop
+      return 3 // Large desktop
     }
-    return 3 // Default
+    return 3
   }
-  
-  const [cardsToShow, setCardsToShow] = useState(getCardsToShow())
+
+  // Calculate proper transform percentage
+  const getTransformPercentage = () => {
+    if (cardsToShow === 1) return currentIndex * 100
+    if (cardsToShow === 2) return currentIndex * 50
+    return currentIndex * (100 / 3)
+  }
+
   const maxIndex = Math.max(0, experiences.length - cardsToShow)
 
-  // Update cards to show on resize
+  // Handle client-side mounting and resize
   useEffect(() => {
+    setIsClient(true)
+    setCardsToShow(getCardsToShow())
+
     const handleResize = () => {
-      setCardsToShow(getCardsToShow())
+      const newCardsToShow = getCardsToShow()
+      setCardsToShow(newCardsToShow)
+      // Reset index if it's beyond the new max
+      setCurrentIndex(prev => Math.min(prev, Math.max(0, experiences.length - newCardsToShow)))
     }
     
     window.addEventListener('resize', handleResize)
@@ -78,6 +96,48 @@ export default function ExperiencesGrid() {
 
   const goToNext = () => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1))
+  }
+
+  // Touch event handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0) // Reset touchEnd
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe && currentIndex < maxIndex) {
+      goToNext()
+    }
+    if (isRightSwipe && currentIndex > 0) {
+      goToPrevious()
+    }
+  }
+
+  // Don't render until client-side to avoid hydration issues
+  if (!isClient) {
+    return (
+      <section className="py-20 sm:py-30 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-montserrat text-3xl sm:text-4xl lg:text-[41px] font-bold text-[#3e3e3e] mb-6 leading-[54px]">Signature Experiences</h2>
+            <p className="text-lg sm:text-xl text-slate-600 max-w-[375px] sm:max-w-[500px] mx-auto">
+              Curated adventures that create lasting memories and exclusive access to the extraordinary
+            </p>
+          </div>
+          <div className="h-96 bg-white/50 rounded-2xl animate-pulse"></div>
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -95,7 +155,7 @@ export default function ExperiencesGrid() {
           <button
             onClick={goToPrevious}
             disabled={currentIndex === 0}
-            className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 bg-[#255156] rounded-[99px] p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-20 bg-[#255156] rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
@@ -103,45 +163,114 @@ export default function ExperiencesGrid() {
           <button
             onClick={goToNext}
             disabled={currentIndex >= maxIndex}
-            className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 bg-[#255156] rounded-[99px] p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-20 bg-[#255156] rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
 
-          {/* Carousel Container */}
-          <div className="overflow-hidden w-full pb-5 pl-5 sm:pb-6 sm:pl-6 lg:pb-8 lg:pl-8">
-            <div
-              className="flex gap-4 sm:gap-6 lg:gap-8 transition-transform duration-500 ease-in-out"
-              style={{ 
-                transform: `translateX(-${currentIndex * (cardsToShow === 1 ? 100 : cardsToShow === 2 ? 50 : 33.33)}%)` 
-              }}
-            >
-              {experiences.map((experience, index) => (
+          {/* Mobile Carousel */}
+          <div className="block sm:hidden">
+            <div className="overflow-hidden mx-4">
+              <div className="pb-8">
                 <div
-                  key={index}
-                  className="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 w-full sm:w-80 lg:w-96 flex-shrink-0"
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ 
+                    transform: `translateX(-${currentIndex * 100}%)`
+                  }}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
                 >
-                  <div className="aspect-[5/3] overflow-hidden">
-                    <picture>
-                      <source srcSet={experience.image} type="image/avif" />
-                      <source srcSet={experience.fallback || experience.webp} type="image/webp" />
-                      <img
-                        src={experience.fallback || experience.image || "/placeholder.svg"}
-                        alt={experience.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    </picture>
-                  </div>
-                  <div className="p-6 sm:p-8">
-                    <div>
-                      <h3 className="font-serif text-lg sm:text-xl font-semibold text-slate-900 mb-3">{experience.title}</h3>
-                      <p className="text-sm sm:text-base text-slate-600 leading-relaxed">{experience.description}</p>
+                  {experiences.map((experience, index) => (
+                    <div
+                      key={index}
+                      className="w-full flex-shrink-0"
+                    >
+                      <div className="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 mx-2">
+                        <div className="aspect-[5/3] overflow-hidden">
+                          <picture>
+                            <source srcSet={experience.image} type="image/avif" />
+                            <source srcSet={experience.fallback || experience.webp} type="image/webp" />
+                            <img
+                              src={experience.fallback || experience.image || "/placeholder.svg"}
+                              alt={experience.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          </picture>
+                        </div>
+                        <div className="p-6">
+                          <div>
+                            <h3 className="font-serif text-lg font-semibold text-slate-900 mb-3">{experience.title}</h3>
+                            <p className="text-sm text-slate-600 leading-relaxed">{experience.description}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
+          </div>
+
+          {/* Desktop Carousel */}
+          <div className="hidden sm:block">
+            <div className="overflow-hidden">
+              <div className="pb-8 px-6">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ 
+                    transform: `translateX(-${getTransformPercentage()}%)`,
+                    gap: '24px',
+                    paddingRight: '16px'
+                  }}
+                >
+                  {experiences.map((experience, index) => (
+                    <div
+                      key={index}
+                      className="flex-shrink-0 bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300"
+                      style={{
+                        width: cardsToShow === 2 ? 'calc(50% - 12px)' : 'calc(33.333% - 16px)'
+                      }}
+                    >
+                      <div className="aspect-[5/3] overflow-hidden">
+                        <picture>
+                          <source srcSet={experience.image} type="image/avif" />
+                          <source srcSet={experience.fallback || experience.webp} type="image/webp" />
+                          <img
+                            src={experience.fallback || experience.image || "/placeholder.svg"}
+                            alt={experience.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </picture>
+                      </div>
+                      <div className="p-6 sm:p-8">
+                        <div>
+                          <h3 className="font-serif text-lg sm:text-xl font-semibold text-slate-900 mb-3">{experience.title}</h3>
+                          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">{experience.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center space-x-2 mt-6">
+            {Array.from({ length: maxIndex + 1 }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  i === currentIndex 
+                    ? 'bg-[#255156] w-6' 
+                    : 'bg-slate-300 hover:bg-slate-400'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
