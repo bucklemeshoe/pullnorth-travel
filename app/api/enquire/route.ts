@@ -6,22 +6,32 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     
     // Validate required fields
-    const { destination, tripType, startDate, endDate, guests, submittedAt } = body
+    const { tripDirection, departure, destination, tripType, startDate, endDate, guests, visaNeeded, submittedAt } = body
     
-    if (!destination || !tripType || !startDate || !endDate || !guests) {
+    if (!departure || !destination || !tripType || !startDate || !guests) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
+    if (tripDirection === "return" && !endDate) {
+      return NextResponse.json(
+        { error: 'Return date is required for return trips' },
+        { status: 400 }
+      )
+    }
+
     // Log the enquiry data
     console.log('New enquiry received:', {
+      tripDirection,
+      departure,
       destination,
       tripType,
       startDate,
       endDate,
       guests,
+      visaNeeded,
       submittedAt,
       timestamp: new Date().toISOString(),
     })
@@ -29,11 +39,14 @@ export async function POST(request: NextRequest) {
     // Send email notification
     try {
       await sendEnquiryEmail({
+        tripDirection,
+        departure,
         destination,
         tripType,
         startDate,
         endDate,
         guests,
+        visaNeeded,
         submittedAt,
       })
       console.log('Email notification sent successfully')

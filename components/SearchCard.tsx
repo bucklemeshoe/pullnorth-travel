@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { MultiSelect, type MultiSelectOption } from "@/components/ui/multi-select"
 
 const tripTypes = [
   "Ultra-Luxury Leisure",
@@ -9,15 +10,31 @@ const tripTypes = [
   "Corporate Incentive",
   "Inbound VIP South Africa",
   "Signature Experiences",
+  "Flights",
+  "Seafarers Book",
 ]
+
+const visaOptions: MultiSelectOption[] = [
+  { label: "Seafarers", value: "Seafarers" },
+  { label: "Tourist", value: "Tourist" },
+  { label: "B1/B2", value: "B1/B2" },
+  { label: "C1D", value: "C1D" },
+  { label: "UK Visa", value: "UK Visa" },
+  { label: "UAE", value: "UAE" },
+  { label: "Other", value: "Other" },
+]
+
 
 export default function SearchCard() {
   const [formData, setFormData] = useState({
+    tripDirection: "return", // "return" or "one-way"
+    departure: "",
     destination: "",
     type: "",
     startDate: "",
     endDate: "",
-    guests: 2,
+    guests: 1,
+    visaNeeded: [] as string[],
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -25,6 +42,10 @@ export default function SearchCard() {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
+
+    if (!formData.departure.trim()) {
+      newErrors.departure = "Departure location is required"
+    }
 
     if (!formData.destination.trim()) {
       newErrors.destination = "Destination is required"
@@ -38,12 +59,12 @@ export default function SearchCard() {
       newErrors.startDate = "Start date is required"
     }
 
-    if (!formData.endDate) {
-      newErrors.endDate = "End date is required"
+    if (formData.tripDirection === "return" && !formData.endDate) {
+      newErrors.endDate = "Return date is required"
     }
 
     if (formData.startDate && formData.endDate && new Date(formData.endDate) < new Date(formData.startDate)) {
-      newErrors.endDate = "End date must be after start date"
+      newErrors.endDate = "Return date must be after departure date"
     }
 
     setErrors(newErrors)
@@ -63,11 +84,14 @@ export default function SearchCard() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            tripDirection: formData.tripDirection,
+            departure: formData.departure,
             destination: formData.destination,
             tripType: formData.type,
             startDate: formData.startDate,
             endDate: formData.endDate,
             guests: formData.guests,
+            visaNeeded: formData.visaNeeded,
             submittedAt: new Date().toISOString(),
           }),
         })
@@ -76,11 +100,14 @@ export default function SearchCard() {
           setSubmitStatus("success")
           // Reset form after successful submission
           setFormData({
+            tripDirection: "return",
+            departure: "",
             destination: "",
             type: "",
             startDate: "",
             endDate: "",
-            guests: 2,
+            guests: 1,
+            visaNeeded: [],
           })
           // Reset success message after 5 seconds
           setTimeout(() => setSubmitStatus("idle"), 5000)
@@ -95,6 +122,7 @@ export default function SearchCard() {
       }
     }
   }
+
 
   return (
     <div id="enquiry-form" className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 max-w-lg mx-auto border border-white/20 relative z-[100]">
@@ -111,22 +139,58 @@ export default function SearchCard() {
           <input name="bot-field" />
         </div>
         <div className="space-y-6">
-          {/* Destination - Full Width */}
+          {/* Trip Direction - Full Width */}
           <div>
             <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
-              Destination
+              Trip Direction
             </label>
-            <input
-              type="text"
-              name="destination"
-              value={formData.destination}
-              onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-              placeholder="Where would you like to go?"
-              className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
+            <select
+              name="tripDirection"
+              value={formData.tripDirection}
+              onChange={(e) => setFormData({ ...formData, tripDirection: e.target.value })}
+              className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
               disabled={isSubmitting}
-              required
-            />
-            {errors.destination && <p className="mt-2 text-sm text-red-600 font-medium">{errors.destination}</p>}
+            >
+              <option value="return">Return Trip</option>
+              <option value="one-way">One-way</option>
+            </select>
+          </div>
+
+          {/* Departure and Destination - Two Columns */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
+                Departure
+              </label>
+              <input
+                type="text"
+                name="departure"
+                value={formData.departure}
+                onChange={(e) => setFormData({ ...formData, departure: e.target.value })}
+                placeholder="From where?"
+                className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
+                disabled={isSubmitting}
+                required
+              />
+              {errors.departure && <p className="mt-2 text-sm text-red-600 font-medium">{errors.departure}</p>}
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
+                Destination
+              </label>
+              <input
+                type="text"
+                name="destination"
+                value={formData.destination}
+                onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                placeholder="Where to?"
+                className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
+                disabled={isSubmitting}
+                required
+              />
+              {errors.destination && <p className="mt-2 text-sm text-red-600 font-medium">{errors.destination}</p>}
+            </div>
           </div>
 
           {/* Trip Type - Full Width */}
@@ -154,11 +218,11 @@ export default function SearchCard() {
             {errors.type && <p className="mt-2 text-sm text-red-600 font-medium">{errors.type}</p>}
           </div>
 
-          {/* Start and End Date - Two Columns */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Departure and Return Date - Two Columns */}
+          <div className={`grid gap-4 ${formData.tripDirection === "one-way" ? "grid-cols-1" : "grid-cols-2"}`}>
             <div>
               <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
-                Start
+                Departure Date
               </label>
               <input
                 type="date"
@@ -172,21 +236,38 @@ export default function SearchCard() {
               {errors.startDate && <p className="mt-2 text-sm text-red-600 font-medium">{errors.startDate}</p>}
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
-                End
-              </label>
-              <input
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
-                disabled={isSubmitting}
-                required
-              />
-              {errors.endDate && <p className="mt-2 text-sm text-red-600 font-medium">{errors.endDate}</p>}
-            </div>
+            {formData.tripDirection === "return" && (
+              <div>
+                <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
+                  Return Date
+                </label>
+                <input
+                  type="date"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                  className="w-full px-5 py-4 rounded-xl bg-white/80 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#255156] focus:border-[#255156] transition-all duration-300"
+                  disabled={isSubmitting}
+                  required
+                />
+                {errors.endDate && <p className="mt-2 text-sm text-red-600 font-medium">{errors.endDate}</p>}
+              </div>
+            )}
+          </div>
+
+          {/* Visa Requirements - Full Width */}
+          <div>
+            <label className="block text-sm font-semibold text-[#3e3e3e] mb-3 text-left tracking-wide uppercase">
+              Do you need a visa?
+            </label>
+            <MultiSelect
+              options={visaOptions}
+              selected={formData.visaNeeded}
+              onChange={(selected) => setFormData({ ...formData, visaNeeded: selected })}
+              placeholder="Select visa types..."
+              disabled={isSubmitting}
+              className="w-full"
+            />
           </div>
 
           {/* Guests - Full Width */}

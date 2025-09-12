@@ -1,11 +1,14 @@
 import nodemailer from 'nodemailer';
 
 interface EnquiryData {
+  tripDirection: string;
+  departure: string;
   destination: string;
   tripType: string;
   startDate: string;
   endDate: string;
   guests: number;
+  visaNeeded: string[];
   submittedAt?: string;
 }
 
@@ -22,14 +25,17 @@ export async function sendEnquiryEmail(data: EnquiryData) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: process.env.NOTIFICATION_EMAIL || 'your-email@example.com', // where to receive notifications
-    subject: `New Travel Enquiry - ${data.destination}`,
+    subject: `New Travel Enquiry - ${data.departure} to ${data.destination}`,
     html: `
       <h2>New Travel Enquiry Received</h2>
+      <p><strong>Trip Direction:</strong> ${data.tripDirection === "return" ? "Return Trip" : "One-way"}</p>
+      <p><strong>Departure:</strong> ${data.departure}</p>
       <p><strong>Destination:</strong> ${data.destination}</p>
       <p><strong>Trip Type:</strong> ${data.tripType}</p>
-      <p><strong>Start Date:</strong> ${data.startDate}</p>
-      <p><strong>End Date:</strong> ${data.endDate}</p>
+      <p><strong>Departure Date:</strong> ${data.startDate}</p>
+      ${data.tripDirection === "return" ? `<p><strong>Return Date:</strong> ${data.endDate}</p>` : ''}
       <p><strong>Number of Guests:</strong> ${data.guests}</p>
+      <p><strong>Visa Requirements:</strong> ${data.visaNeeded.length > 0 ? data.visaNeeded.join(', ') : 'None specified'}</p>
       <p><strong>Submitted:</strong> ${data.submittedAt || new Date().toISOString()}</p>
       
       <hr>
