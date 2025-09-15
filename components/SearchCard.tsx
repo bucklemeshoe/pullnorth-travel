@@ -15,10 +15,10 @@ const tripTypes = [
 ]
 
 const visaOptions: MultiSelectOption[] = [
-  { label: "Seafarers", value: "Seafarers" },
-  { label: "Tourist", value: "Tourist" },
-  { label: "B1/B2", value: "B1/B2" },
-  { label: "C1D", value: "C1D" },
+  { label: "Seafarers (Schengen)", value: "Seafarers (Schengen)" },
+  { label: "Tourist (Schengen)", value: "Tourist (Schengen)" },
+  { label: "B1/B2 (USA)", value: "B1/B2 (USA)" },
+  { label: "C1D (USA)", value: "C1D (USA)" },
   { label: "UK Visa", value: "UK Visa" },
   { label: "UAE", value: "UAE" },
   { label: "Other", value: "Other" },
